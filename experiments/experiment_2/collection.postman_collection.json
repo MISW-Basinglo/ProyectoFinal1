@@ -1,0 +1,71 @@
+{
+	"info": {
+		"_postman_id": "b197acc1-766a-4889-9e80-f4dce62eda08",
+		"name": "HealthExperiment",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34202095",
+		"_collection_link": "https://martian-desert-961680.postman.co/workspace/API-MISO~81de84bc-60de-4a06-84e9-e646890b69f1/collection/34202095-b197acc1-766a-4889-9e80-f4dce62eda08?action=share&source=collection_link&creator=34202095"
+	},
+	"item": [
+		{
+			"name": "Health",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{health_experiment_base}}/health",
+					"protocol": "http",
+					"host": [
+						"{{health_experiment_base}}"
+					],
+					"path": [
+						"health"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Process",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://{{health_experiment_base}}/process",
+					"protocol": "http",
+					"host": [
+						"{{health_experiment_base}}"
+					],
+					"path": [
+						"process"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Crash",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://{{health_experiment_base}}/crash",
+					"protocol": "http",
+					"host": [
+						"{{health_experiment_base}}"
+					],
+					"path": [
+						"crash"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "health_experiment_base",
+			"value": "34.29.202.89"
+		}
+	]
+}

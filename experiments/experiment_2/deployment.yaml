@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: communication-manager-deployment
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: communication-manager
+  template:
+    metadata:
+      labels:
+        app: communication-manager
+    spec:
+      containers:
+      - name: communication-manager-container
+        image: gcr.io/api-miso/communication-manager:latest
+        resources:
+          requests:
+            memory: "128Mi"
+            cpu: "100m"
+          limits:
+            memory: "256Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /health
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: communication-manager-service
+spec:
+  selector:
+    app: communication-manager
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 8080
+  type: LoadBalancer
