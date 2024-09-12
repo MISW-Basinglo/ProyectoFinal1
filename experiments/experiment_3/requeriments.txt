@@ -1,0 +1,7 @@
+Flask==2.3.3
+google-auth==2.23.4
+google-auth-oauthlib==1.0.0
+google-auth-httplib2==0.1.0
+Flask-OAuthlib==0.9.6
+oauthlib==3.2.2
+requests==2.31.0
