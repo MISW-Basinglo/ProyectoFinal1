@@ -11,4 +11,4 @@ dist/
 build/
 *.egg
 *.egg-info
-experiments/experiment_1/mail_client.json
+experiments/experiment_1/credentials/

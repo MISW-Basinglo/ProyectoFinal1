@@ -1,11 +1,12 @@
 import time
 
+from experiments.experiment_1.src.constants import ALLOWED_SENDERS
 from experiments.experiment_1.src.services.pubsub_service import PubSubService
 from experiments.experiment_1.src.utils import get_mail_service
 
 
 class EmailDaemon:
-    def __init__(self, poll_interval=60):
+    def __init__(self, poll_interval=5):
         self.mail_service = get_mail_service()
         self.pubsub_service = PubSubService()
         self.poll_interval = poll_interval  # Polling interval in seconds
@@ -26,8 +27,7 @@ class EmailDaemon:
             return False
 
         # Regla 2: Procesar solo correos de un remitente específico (para pruebas)
-        allowed_senders = ['cliente@empresa.com']
-        if from_address not in allowed_senders:
+        if from_address not in [ALLOWED_SENDERS]:
             print(f"Correo rechazado por remitente no autorizado: {from_address}")
             return False
 
@@ -51,9 +51,10 @@ class EmailDaemon:
                     if self.is_valid_email(email):
                         # Publish each valid email to Pub/Sub
                         # self.pubsub_service.publish_message(str(email))
-                        print("Correo publicado en Pub/Sub.")
+                        print("Correo publicado en Pub/Sub.", email)
                     else:
                         print(f"Correo descartado: {email.get('subject')}")
+                    self.mail_service.mark_as_read(email.get('id'))
             else:
                 print("No new emails found.")
 

@@ -20,7 +20,6 @@ class GmailService(MailService):
                 msg = self.service.users().messages().get(userId='me', id=message['id']).execute()
                 email_data.append({
                     "id": msg['id'],
-                    "snippet": msg['snippet'],
                     "subject": self.get_header(msg['payload']['headers'], 'Subject'),
                     "from": self.get_header(msg['payload']['headers'], 'From'),
                     "body": msg['snippet']
@@ -29,6 +28,16 @@ class GmailService(MailService):
         except Exception as e:
             print(f"Error fetching unread emails: {e}")
             return []
+
+    def mark_as_read(self, message_id):
+        try:
+            self.service.users().messages().modify(
+                userId='me',
+                id=message_id,
+                body={'removeLabelIds': ['UNREAD']}
+            ).execute()
+        except Exception as e:
+            print(f"Error marking email as read: {e}")
 
     @staticmethod
     def get_header(headers, name):
