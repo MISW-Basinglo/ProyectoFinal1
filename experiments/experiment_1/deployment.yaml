@@ -1,9 +1,8 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: DaemonSet
 metadata:
   name: mail-daemon-deployment
 spec:
-  replicas: 2
   selector:
     matchLabels:
       app: mail-daemon
@@ -14,7 +13,7 @@ spec:
     spec:
       containers:
       - name: mail-daemon-container
-        image: gcr.io/api-miso/mail-daemon:latest
+        image: gcr.io/api-miso/email-daemon:latest
         resources:
           requests:
             memory: "128Mi"
@@ -22,12 +21,3 @@ spec:
           limits:
             memory: "256Mi"
             cpu: "500m"
----
-apiVersion: v1
-kind: Service
-metadata:
-  name: mail-daemon-service
-spec:
-  selector:
-    app: mail-daemon
-  type: LoadBalancer

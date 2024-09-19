@@ -1,8 +1,9 @@
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 
-from experiments.experiment_1.src.constants import GMAIL_TOKEN_PATH, GMAIL_SCOPES
-from experiments.experiment_1.src.services.mail_service import MailService
+from src.constants import GMAIL_TOKEN_PATH, GMAIL_SCOPES
+from src.services.mail_service import MailService
+import logging
 
 
 class GmailService(MailService):
@@ -26,7 +27,7 @@ class GmailService(MailService):
                 })
             return email_data
         except Exception as e:
-            print(f"Error fetching unread emails: {e}")
+            logging.info(f"Error fetching unread emails: {e}")
             return []
 
     def mark_as_read(self, message_id):
@@ -37,7 +38,7 @@ class GmailService(MailService):
                 body={'removeLabelIds': ['UNREAD']}
             ).execute()
         except Exception as e:
-            print(f"Error marking email as read: {e}")
+            logging.error(f"Error marking email as read: {e}")
 
     @staticmethod
     def get_header(headers, name):

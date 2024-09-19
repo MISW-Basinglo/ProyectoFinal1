@@ -4,12 +4,12 @@ from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
 
-from experiments.experiment_1.src.constants import MAIL_PROVIDER, GMAIL_TOKEN_PATH, GMAIL_SCOPES, GMAIL_CREDENTIALS_PATH
+from .constants import MAIL_PROVIDER, GMAIL_TOKEN_PATH, GMAIL_SCOPES, GMAIL_CREDENTIALS_PATH
+from .services.gmail import GmailService
 
 
 def get_mail_service():
     if MAIL_PROVIDER == 'gmail':
-        from experiments.experiment_1.src.services.gmail import GmailService
         return GmailService()
     else:
         raise ValueError(f"Mail provider {MAIL_PROVIDER} is not supported.")
